@@ -1,6 +1,6 @@
 {
   "name": "timeline-exporter",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Google maps timeline exporter",
   "author": "Rein Appeldoorn <reinzor@gmail.com>",
   "license": "MIT",
