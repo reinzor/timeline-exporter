@@ -23,8 +23,11 @@
     }
   },
   "dependencies": {
+    "@mapbox/togeojson": "^0.16.0",
     "axios": "^0.19.0",
-    "vue": "^2.6.10"
+    "bootstrap": "^4.5.3",
+    "bootstrap-vue": "^2.20.1",
+    "vue": "^2.6.12"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",

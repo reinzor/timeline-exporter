@@ -16,6 +16,8 @@
     ]
   },
   "permissions": [
-    "tabs"
+    "tabs",
+    "http://www.google.com/*",
+    "https://www.google.com/*"
   ]
 }

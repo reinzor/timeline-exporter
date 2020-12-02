@@ -1,19 +1,37 @@
 <template>
   <div>
-    <p>Hello world!</p>
+    <navbar />
+    <b-container>
+      <data-selection @data-updated="dataUpdated" />
+        <b-tabs>
+          <b-tab title="Table" active>
+            <data-table :data="data" />
+          </b-tab>
+        </b-tabs>
+    </b-container>
   </div>
 </template>
 
 <script>
+import Navbar from "./components/Navbar"
+import DataSelection from "./components/DataSelection"
+import DataTable from "./components/DataTable"
+
 export default {
-  data() {
-    return {};
+  components: {
+    Navbar,
+    DataSelection,
+    DataTable
   },
+  data() {
+    return {
+      data: []
+    };
+  },
+  methods: {
+    dataUpdated(data) {
+      this.data = data
+    }
+  }
 };
 </script>
-
-<style lang="scss" scoped>
-p {
-  font-size: 20px;
-}
-</style>
