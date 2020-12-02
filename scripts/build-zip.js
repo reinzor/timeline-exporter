@@ -4,8 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
 
-const DEST_DIR = path.join(__dirname, '../dist');
-const DEST_ZIP_DIR = path.join(__dirname, '../dist-zip'); 
+const DIST_DIR = path.join(__dirname, '../dist');
+const DIST_ZIP_DIR = path.join(__dirname, '../dist-zip'); 
+const CHANGELOG = path.join(__dirname, '../CHANGELOG.rst'); 
+const DIST_CHANGELOG = path.join(__dirname, '../dist/CHANGELOG.rst'); 
 
 const extractExtensionData = () => {
   const extPackageJson = require('../package.json');
@@ -17,8 +19,8 @@ const extractExtensionData = () => {
 };
 
 const makeDestZipDirIfNotExists = () => {
-  if(!fs.existsSync(DEST_ZIP_DIR)) {
-    fs.mkdirSync(DEST_ZIP_DIR);
+  if(!fs.existsSync(DIST_ZIP_DIR)) {
+    fs.mkdirSync(DIST_ZIP_DIR);
   }
 }
 
@@ -45,7 +47,9 @@ const main = () => {
   
   makeDestZipDirIfNotExists();
 
-  buildZip(DEST_DIR, DEST_ZIP_DIR, zipFilename)
+  fs.copyFile(CHANGELOG, DIST_CHANGELOG, (err) => {})
+
+  buildZip(DIST_DIR, DIST_ZIP_DIR, zipFilename)
     .then(() => console.info('OK'))
     .catch(console.err); 
 };
