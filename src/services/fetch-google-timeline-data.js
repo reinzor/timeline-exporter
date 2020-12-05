@@ -1,6 +1,6 @@
-
 import axios from 'axios'
 import toGeoJSON from '@mapbox/togeojson'
+import moment from 'moment'
 
 function fetchGoogleTimelineData(from, to) {
   let fromDate = new Date(from);
@@ -21,7 +21,20 @@ function fetchGoogleTimelineData(from, to) {
       responses.forEach(response => {
         let kml = new DOMParser().parseFromString(response.data, "application/xml");
         let gj = toGeoJSON.kml(kml)
-        data = data.concat(gj.features)
+        gj.features.forEach((feature) => {
+          let timeBegin = moment(feature.properties.timespan.begin)
+          let timeEnd = moment(feature.properties.timespan.end)
+          let duration = moment.duration(timeEnd.diff(timeBegin));
+          data.push({
+            name: feature.properties.name,
+            address: feature.properties.address,
+            timeBegin: timeBegin,
+            timeEnd: timeEnd,
+            duration: duration,
+            category: feature.properties.Category,
+            distance: feature.properties.Distance
+          })
+        })
       })
       resolve(data)
     })).catch(errors => {
