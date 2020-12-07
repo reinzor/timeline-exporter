@@ -8,6 +8,7 @@
     <label class="sr-only" for="from-date">From</label>
     <b-form-datepicker id="from-date" class="mb-2 mr-sm-2 mb-sm-0"
       @input="fetchData()"
+      :value-as-date="true"
       v-model="from"
       :hide-header="true">
     </b-form-datepicker>
@@ -15,6 +16,7 @@
     <b-form-datepicker id="to-date" class="mb-2 mr-sm-2 mb-sm-0"
       @input="fetchData()"
       :disabled="type != Types.RANGE"
+      :value-as-date="true"
       v-model="to"
       :hide-header="true">
     </b-form-datepicker>
@@ -48,25 +50,25 @@ export default {
     fromDate() {
       switch (this.type) {
         case Types.DAY:
-          return this.from;
+          return new Date(this.from)
         case Types.WEEK:
           return this.getFirstDayOfWeek();
         case Types.MONTH:
           return this.getFirstDayOfMonth();
         case Types.RANGE:
-          return this.from;
+          return new Date(this.from)
       }
     },
     toDate() {
       switch (this.type) {
         case Types.DAY:
-          return this.from;
+          return new Date(this.from)
         case Types.WEEK:
           return this.getLastDayOfWeek();
         case Types.MONTH:
           return this.getLastDayOfMonth();
         case Types.RANGE:
-          return this.to;
+          return new Date(this.to)
       }
     },
   },
