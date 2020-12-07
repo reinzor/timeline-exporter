@@ -1,42 +1,108 @@
 <template>
   <b-form inline id="data-selection">
-    <label class="sr-only" for="from-data">From</label>
-    <b-form-datepicker id="from-date" v-model="from" class="mb-2 mr-sm-2 mb-sm-0"></b-form-datepicker>
+    <b-form-group>
+      <b-form-radio-group v-model="type" @input="fetchData()">
+        <b-form-radio v-for="Type in Types" :value="Type" :key="Type">{{ Type }}</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+    <label class="sr-only" for="from-date">From</label>
+    <b-form-datepicker id="from-date" class="mb-2 mr-sm-2 mb-sm-0"
+      @input="fetchData()"
+      v-model="from"
+      :hide-header="true">
+    </b-form-datepicker>
     <label class="sr-only" for="to-date">To</label>
-    <b-form-datepicker id="to-date" v-model="to" class="mb-2 mr-sm-2 mb-sm-0"></b-form-datepicker>
-    <b-button variant="outline-secondary" :disabled="buttonDisabled" @click="fetchData">Fetch
-      <b-spinner small v-if="fetching"></b-spinner>
-    </b-button>
+    <b-form-datepicker id="to-date" class="mb-2 mr-sm-2 mb-sm-0"
+      @input="fetchData()"
+      :disabled="type != Types.RANGE"
+      v-model="to"
+      :hide-header="true">
+    </b-form-datepicker>
+    <span v-if="fetching">
+      <small class="text-muted"><b-spinner small></b-spinner> Fetching {{ from }} to {{ to }}</small>
+    </span>
   </b-form>
 </template>
 
 <script>
-import fetchGoogleTimelineData from '../services/fetch-google-timeline-data'
+import fetchGoogleTimelineData from '../services/fetch-google-timeline-data';
+
+const Types = {
+  DAY: 'Day',
+  WEEK: 'Week',
+  MONTH: 'Month',
+  RANGE: 'Range',
+};
 
 export default {
   data() {
     return {
+      type: Types.DAY,
+      Types: Types,
       from: new Date(),
       to: new Date(),
-      fetching: false
+      fetching: false,
     };
   },
   computed: {
-    buttonDisabled() {
-      return this.from === '' || this.to === '' || this.fetching
-    }
+    fromDate() {
+      switch (this.type) {
+        case Types.DAY:
+          return this.from;
+        case Types.WEEK:
+          return this.getFirstDayOfWeek();
+        case Types.MONTH:
+          return this.getFirstDayOfMonth();
+        case Types.RANGE:
+          return this.from;
+      }
+    },
+    toDate() {
+      switch (this.type) {
+        case Types.DAY:
+          return this.from;
+        case Types.WEEK:
+          return this.getLastDayOfWeek();
+        case Types.MONTH:
+          return this.getLastDayOfMonth();
+        case Types.RANGE:
+          return this.to;
+      }
+    },
+  },
+  created() {
+    this.fetchData();
   },
   methods: {
-    fetchData () {
-      this.fetching = true
-      fetchGoogleTimelineData(this.from, this.to).then((data) => {
-        this.$emit('data-updated', data)
-        this.fetching = false
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
-  }
+    getFirstDayOfWeek() {
+      let date = new Date(this.from);
+      let first = date.getDate() - date.getDay();
+      return new Date(date.setDate(first)).toUTCString();
+    },
+    getLastDayOfWeek() {
+      let date = new Date(this.from);
+      let first = date.getDate() - date.getDay();
+      let last = first + 6;
+      return new Date(date.setDate(last)).toUTCString();
+    },
+    getFirstDayOfMonth() {
+      return new Date(this.from.getFullYear(), this.from.getMonth(), 1);
+    },
+    getLastDayOfMonth() {
+      return new Date(this.from.getFullYear(), this.from.getMonth() + 1, 0);
+    },
+    fetchData() {
+      this.fetching = true;
+      fetchGoogleTimelineData(this.fromDate, this.toDate)
+        .then((data) => {
+          this.$emit('data-updated', data);
+          this.fetching = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 <style>
@@ -45,6 +111,6 @@ export default {
   margin-bottom: 10px;
 }
 .b-form-datepicker {
-  width: 300px !important
+  width: 300px !important;
 }
 </style>
