@@ -25,7 +25,10 @@ export default {
   },
   data() {
     return {
-      data: []
+      data: {
+        name: '',
+        items: []
+      }
     };
   },
   methods: {

@@ -8,8 +8,8 @@
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown text="Help" right>
-            </b-nav-item-dropdown>
+          <b-nav-item-dropdown text="Help" right>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-container>

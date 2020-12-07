@@ -20,7 +20,10 @@ function fetchGoogleTimelineData(from, to) {
   
   return new Promise((resolve, reject) => {
     axios.all(requests).then(axios.spread((...responses) => {
-      let data = []
+      let data = {
+        name: `${moment(fromDate).format('YYYY-DD-MM')}_${moment(toDate).format('YYYY-DD-MM')}`,
+        items: []
+      }
       responses.forEach(response => {
         let kml = new DOMParser().parseFromString(response.data, "application/xml");
         let gj = toGeoJSON.kml(kml)
@@ -28,7 +31,7 @@ function fetchGoogleTimelineData(from, to) {
           let timeBegin = moment(feature.properties.timespan.begin)
           let timeEnd = moment(feature.properties.timespan.end)
           let duration = moment.duration(timeEnd.diff(timeBegin))
-          data.push({
+          data.items.push({
             name: feature.properties.name,
             address: feature.properties.address,
             timeBegin: timeBegin,

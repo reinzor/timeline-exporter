@@ -1,6 +1,14 @@
 <template>
   <b-card-body>
-    <b-table striped hover :items="data">
+    <b-dropdown variant="primary">
+      <template #button-content>
+        <b-icon icon="download" aria-hidden="true"></b-icon>
+      </template>
+      <b-dropdown-item>
+        <download-csv :data="data.items" :name="`${data.name}.csv`">CSV</download-csv>
+      </b-dropdown-item>
+    </b-dropdown>
+    <b-table striped hover :items="data.items">
       <template #cell(timeBegin)="data">
         <span v-b-tooltip.hover :title="data.value.format('YYYY-DD-MM hh:mm:ss')" v-text="data.value.calendar()" />
       </template>
@@ -18,14 +26,19 @@
 </template>
 
 <script>
+import DownloadCsv from 'vue-json-csv'
+
 import fetchGoogleTimelineData from '../services/fetch-google-timeline-data'
 import { formatDuration } from '../util/time'
 import { formatKilometers } from '../util/distance'
 
 export default {
+  components: {
+    DownloadCsv
+  },
   props: {
     data: {
-      type: Array,
+      type: Object,
       required: true
     }
   },
@@ -35,3 +48,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+table {
+  margin-top: 20px;
+}
+</style>
