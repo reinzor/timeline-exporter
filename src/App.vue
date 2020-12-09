@@ -1,5 +1,6 @@
 <template>
   <div>
+    <global-options-modal />
     <navbar />
     <b-container>
       <data-selection @data-updated="dataUpdated" />
@@ -16,12 +17,14 @@
 import Navbar from "./components/Navbar"
 import DataSelection from "./components/DataSelection"
 import DataTable from "./components/DataTable"
+import GlobalOptionsModal from './components/GlobalOptionsModal.vue'
 
 export default {
   components: {
     Navbar,
     DataSelection,
-    DataTable
+    DataTable,
+    GlobalOptionsModal
   },
   data() {
     return {

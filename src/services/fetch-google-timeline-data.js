@@ -42,6 +42,15 @@ function fetchGoogleTimelineData(from, to) {
           })
         })
       })
+
+      // Remove duplicated multi-day items
+      data.items = data.items.filter((e, index) => {
+        const _e = JSON.stringify(e);
+        return index === data.items.findIndex(e2 => {
+          return JSON.stringify(e2) === _e;
+        });
+      });
+
       resolve(data)
     })).catch(errors => {
       reject(errors)

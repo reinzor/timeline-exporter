@@ -10,6 +10,7 @@
       @input="fetchData()"
       :value-as-date="true"
       v-model="from"
+      :start-weekday="globalOptions.startWeekDay"
       :hide-header="true">
     </b-form-datepicker>
     <label class="sr-only" for="to-date">To</label>
@@ -21,12 +22,15 @@
       :hide-header="true">
     </b-form-datepicker>
     <span v-if="fetching">
-      <small class="text-muted"><b-spinner small></b-spinner> Fetching {{ from }} to {{ to }}</small>
+      <small class="text-muted"><b-spinner small></b-spinner></small>
     </span>
   </b-form>
 </template>
 
 <script>
+import globalOptions from '../services/global_options'
+import { getFirstDayOfWeek, getLastDayOfWeek, getFirstDayOfMonth, getLastDayOfMonth } from '../util/date'
+
 const Types = {
   DAY: 'Day',
   WEEK: 'Week',
@@ -37,6 +41,7 @@ const Types = {
 export default {
   data() {
     return {
+      globalOptions,
       type: Types.DAY,
       Types: Types,
       from: new Date(),
@@ -50,9 +55,9 @@ export default {
         case Types.DAY:
           return new Date(this.from)
         case Types.WEEK:
-          return this.getFirstDayOfWeek();
+          return getFirstDayOfWeek(this.from)
         case Types.MONTH:
-          return this.getFirstDayOfMonth();
+          return getFirstDayOfMonth(this.from)
         case Types.RANGE:
           return new Date(this.from)
       }
@@ -62,9 +67,9 @@ export default {
         case Types.DAY:
           return new Date(this.from)
         case Types.WEEK:
-          return this.getLastDayOfWeek();
+          return getLastDayOfWeek(this.from)
         case Types.MONTH:
-          return this.getLastDayOfMonth();
+          return getLastDayOfMonth(this.from)
         case Types.RANGE:
           return new Date(this.to)
       }
@@ -74,26 +79,15 @@ export default {
     this.fetchData();
   },
   methods: {
-    getFirstDayOfWeek() {
-      let date = new Date(this.from);
-      let first = date.getDate() - date.getDay();
-      return new Date(date.setDate(first)).toUTCString();
-    },
-    getLastDayOfWeek() {
-      let date = new Date(this.from);
-      let first = date.getDate() - date.getDay();
-      let last = first + 6;
-      return new Date(date.setDate(last)).toUTCString();
-    },
-    getFirstDayOfMonth() {
-      return new Date(this.from.getFullYear(), this.from.getMonth(), 1);
-    },
-    getLastDayOfMonth() {
-      return new Date(this.from.getFullYear(), this.from.getMonth() + 1, 0);
-    },
     fetchData() {
       this.fetching = true
       chrome.runtime.sendMessage({from: this.fromDate, to: this.toDate}, data => {
+        // Convert dates to dates (Cannot be handled in fetchGoogleTimelineData method due to content background serialization)
+        data.items = data.items.map(e => {
+          e.timeBegin = new Date(e.timeBegin)
+          e.timeEnd = new Date(e.timeEnd)
+          return e
+        })
         this.$emit('data-updated', data);
         this.fetching = false;
       })
