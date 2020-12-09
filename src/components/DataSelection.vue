@@ -94,15 +94,11 @@ export default {
       return new Date(this.from.getFullYear(), this.from.getMonth() + 1, 0);
     },
     fetchData() {
-      this.fetching = true;
-      fetchGoogleTimelineData(this.fromDate, this.toDate)
-        .then((data) => {
-          this.$emit('data-updated', data);
-          this.fetching = false;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.fetching = true
+      chrome.runtime.sendMessage({from: this.fromDate, to: this.toDate}, data => {
+        this.$emit('data-updated', data);
+        this.fetching = false;
+      })
     },
   },
 };

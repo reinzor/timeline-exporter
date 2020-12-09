@@ -10,13 +10,13 @@
     </b-dropdown>
     <b-table striped hover :items="data.items">
       <template #cell(timeBegin)="data">
-        <span v-b-tooltip.hover :title="data.value.format('YYYY-DD-MM hh:mm:ss')" v-text="data.value.calendar()" />
+        <span v-b-tooltip.hover :title="data.value">{{ data.value | moment("calendar") }}</span>
       </template>
       <template #cell(timeEnd)="data">
-        <span v-b-tooltip.hover :title="data.value.format('YYYY-DD-MM hh:mm:ss')" v-text="data.value.calendar()" />
+        <span v-b-tooltip.hover :title="data.value">{{ data.value | moment("calendar") }}</span>
       </template>
       <template #cell(duration)="data">
-        <span v-b-tooltip.hover :title="formatDuration(data.value)" v-text="data.value.humanize()" />
+        <span v-b-tooltip.hover :title="data.value">{{ data.value | duration('humanize') }}</span>
       </template>
       <template #cell(distance)="data">
         <span v-b-tooltip.hover :title="data.value" v-text="formatKilometers(data.value)" />

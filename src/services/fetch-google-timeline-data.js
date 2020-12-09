@@ -30,12 +30,12 @@ function fetchGoogleTimelineData(from, to) {
         gj.features.forEach((feature) => {
           let timeBegin = moment(feature.properties.timespan.begin)
           let timeEnd = moment(feature.properties.timespan.end)
-          let duration = moment.duration(timeEnd.diff(timeBegin))
+          let duration = moment.duration(timeEnd.diff(timeBegin)).asMilliseconds()
           data.items.push({
             name: feature.properties.name,
             address: feature.properties.address,
-            timeBegin: timeBegin,
-            timeEnd: timeEnd,
+            timeBegin: feature.properties.timespan.begin,
+            timeEnd: feature.properties.timespan.end,
             duration: duration,
             category: feature.properties.Category,
             distance: feature.properties.Distance

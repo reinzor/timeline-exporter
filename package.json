@@ -29,7 +29,8 @@
     "bootstrap-vue": "^2.20.1",
     "moment": "^2.29.1",
     "vue": "^2.6.12",
-    "vue-json-csv": "^1.2.11"
+    "vue-json-csv": "^1.2.11",
+    "vue-moment": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
