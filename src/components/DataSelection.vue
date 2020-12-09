@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import fetchGoogleTimelineData from '../services/fetch-google-timeline-data';
-
 const Types = {
   DAY: 'Day',
   WEEK: 'Week',
