@@ -102,6 +102,8 @@ if (config.mode === 'production') {
       },
     }),
   ]);
+} else {
+  config.devtool = 'cheap-module-source-map'
 }
 
 if (process.env.HMR === 'true') {
