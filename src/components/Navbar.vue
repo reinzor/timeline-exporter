@@ -13,7 +13,9 @@
           </b-nav-item>
           <b-nav-item-dropdown :text="`v${packageVersion}`" right>
             <b-dropdown-item href="https://github.com/reinzor/timeline-exporter">Github</b-dropdown-item>
-            <b-dropdown-item href="https://chrome.google.com/webstore/detail/afalbippddliaaomolohcbfogogbjpkk">Chrome extension</b-dropdown-item>
+            <b-dropdown-item href="https://chrome.google.com/webstore/detail/afalbippddliaaomolohcbfogogbjpkk">
+              Chrome extension
+            </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -22,15 +24,15 @@
 </template>
 
 <script>
-const PACKAGE_VERSION = require('../../package.json').version;
+const PACKAGE_VERSION = require('../../package.json').version
 
 export default {
   data() {
     return {
       packageVersion: PACKAGE_VERSION
-    };
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>

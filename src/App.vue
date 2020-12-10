@@ -4,19 +4,19 @@
     <navbar />
     <b-container>
       <data-selection @data-updated="dataUpdated" />
-        <b-tabs>
-          <b-tab title="Table" active>
-            <data-table :data="data" />
-          </b-tab>
-        </b-tabs>
+      <b-tabs>
+        <b-tab title="Table" active>
+          <data-table :data="data" />
+        </b-tab>
+      </b-tabs>
     </b-container>
   </div>
 </template>
 
 <script>
-import Navbar from "./components/Navbar"
-import DataSelection from "./components/DataSelection"
-import DataTable from "./components/DataTable"
+import Navbar from './components/Navbar'
+import DataSelection from './components/DataSelection'
+import DataTable from './components/DataTable'
 import GlobalOptionsModal from './components/GlobalOptionsModal.vue'
 
 export default {
@@ -32,12 +32,12 @@ export default {
         name: '',
         items: []
       }
-    };
+    }
   },
   methods: {
     dataUpdated(data) {
       this.data = data
     }
   }
-};
+}
 </script>

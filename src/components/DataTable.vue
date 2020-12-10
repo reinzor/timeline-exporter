@@ -10,10 +10,10 @@
     </b-dropdown>
     <b-table striped hover :items="data.items" :fields="fields">
       <template #cell(timeBegin)="data">
-        <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | moment("calendar") }}</span>
+        <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | moment('calendar') }}</span>
       </template>
       <template #cell(timeEnd)="data">
-        <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | moment("calendar") }}</span>
+        <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | moment('calendar') }}</span>
       </template>
       <template #cell(duration)="data">
         <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | duration('humanize') }}</span>
@@ -32,7 +32,7 @@ export default {
   components: {
     DownloadCsv
   },
-  data () {
+  data() {
     return {
       fields: [
         { key: 'name', sortable: true },
@@ -51,7 +51,7 @@ export default {
       required: true
     }
   }
-};
+}
 </script>
 <style scoped>
 table {

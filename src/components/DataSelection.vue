@@ -6,20 +6,26 @@
       </b-form-radio-group>
     </b-form-group>
     <label class="sr-only" for="from-date">From</label>
-    <b-form-datepicker id="from-date" class="mb-2 mr-sm-2 mb-sm-0"
+    <b-form-datepicker
+      id="from-date"
+      class="mb-2 mr-sm-2 mb-sm-0"
       @input="fetchData()"
       :value-as-date="true"
       v-model="from"
       :start-weekday="globalOptions.startWeekDay"
-      :hide-header="true">
+      :hide-header="true"
+    >
     </b-form-datepicker>
     <label class="sr-only" for="to-date">To</label>
-    <b-form-datepicker id="to-date" class="mb-2 mr-sm-2 mb-sm-0"
+    <b-form-datepicker
+      id="to-date"
+      class="mb-2 mr-sm-2 mb-sm-0"
       @input="fetchData()"
       :disabled="type != Types.RANGE"
       :value-as-date="true"
       v-model="to"
-      :hide-header="true">
+      :hide-header="true"
+    >
     </b-form-datepicker>
     <span v-if="fetching">
       <small class="text-muted"><b-spinner small></b-spinner></small>
@@ -35,8 +41,8 @@ const Types = {
   DAY: 'Day',
   WEEK: 'Week',
   MONTH: 'Month',
-  RANGE: 'Range',
-};
+  RANGE: 'Range'
+}
 
 export default {
   data() {
@@ -46,8 +52,8 @@ export default {
       Types: Types,
       from: new Date(),
       to: new Date(),
-      fetching: false,
-    };
+      fetching: false
+    }
   },
   computed: {
     fromDate() {
@@ -58,7 +64,7 @@ export default {
           return getFirstDayOfWeek(this.from)
         case Types.MONTH:
           return getFirstDayOfMonth(this.from)
-        case Types.RANGE:
+        default:
           return new Date(this.from)
       }
     },
@@ -70,20 +76,24 @@ export default {
           return getLastDayOfWeek(this.from)
         case Types.MONTH:
           return getLastDayOfMonth(this.from)
-        case Types.RANGE:
+        default:
           return new Date(this.to)
       }
-    },
+    }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     fetchData() {
       this.fetching = true
-      chrome.runtime.sendMessage({from: this.fromDate, to: this.toDate}, data => {
+      chrome.runtime.sendMessage({ from: this.fromDate, to: this.toDate }, data => {
         if (data === undefined) {
-          this.$bvToast.toast('Failed to fetch Google timeline data', { title: 'Error', toaster: 'b-toaster-bottom-right', variant: 'danger' })
+          this.$bvToast.toast('Failed to fetch Google timeline data', {
+            title: 'Error',
+            toaster: 'b-toaster-bottom-right',
+            variant: 'danger'
+          })
           return
         }
         // Convert dates to dates (Cannot be handled in fetchGoogleTimelineData method due to content background serialization)
@@ -92,12 +102,12 @@ export default {
           e.timeEnd = new Date(e.timeEnd)
           return e
         })
-        this.$emit('data-updated', data);
-        this.fetching = false;
+        this.$emit('data-updated', data)
+        this.fetching = false
       })
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style>
 #data-selection {

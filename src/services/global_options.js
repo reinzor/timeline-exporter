@@ -8,14 +8,14 @@ class Globaloptions {
     this.load()
   }
 
-  store () {
+  store() {
     window.localStorage.setItem('globalOptions', JSON.stringify(this))
   }
 
-  load () {
-    let storedString = window.localStorage.getItem('globalOptions')
+  load() {
+    const storedString = window.localStorage.getItem('globalOptions')
     if (storedString) {
-      let storedObject = JSON.parse(storedString)
+      const storedObject = JSON.parse(storedString)
       Object.assign(this, storedObject)
     }
   }

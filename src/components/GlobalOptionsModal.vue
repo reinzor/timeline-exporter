@@ -1,25 +1,27 @@
 <template>
-<b-modal id="global-options-modal" hide-footer>
-  <template #modal-title>
-    <b-icon icon="gear" aria-hidden="true"></b-icon> Global options
-  </template>
-  <label for="start-weekday" class="mt-2">Week starts at:</label>
-  <b-form-select id="start-weekday" v-model="globalOptions.startWeekDay" :options="globalOptions.startWeekDayOptions"></b-form-select>
-</b-modal>
+  <b-modal id="global-options-modal" hide-footer>
+    <template #modal-title> <b-icon icon="gear" aria-hidden="true"></b-icon> Global options </template>
+    <label for="start-weekday" class="mt-2">Week starts at:</label>
+    <b-form-select
+      id="start-weekday"
+      v-model="globalOptions.startWeekDay"
+      :options="globalOptions.startWeekDayOptions"
+    ></b-form-select>
+  </b-modal>
 </template>
 
 <script>
 import globalOptions from '../services/global_options'
 
 export default {
-  data () {
+  data() {
     return {
       globalOptions
     }
   },
   watch: {
     globalOptions: {
-      handler () {
+      handler() {
         globalOptions.store()
       },
       deep: true
