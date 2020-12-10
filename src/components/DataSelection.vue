@@ -82,6 +82,10 @@ export default {
     fetchData() {
       this.fetching = true
       chrome.runtime.sendMessage({from: this.fromDate, to: this.toDate}, data => {
+        if (data === undefined) {
+          this.$bvToast.toast('Failed to fetch Google timeline data', { title: 'Error', toaster: 'b-toaster-bottom-right', variant: 'danger' })
+          return
+        }
         // Convert dates to dates (Cannot be handled in fetchGoogleTimelineData method due to content background serialization)
         data.items = data.items.map(e => {
           e.timeBegin = new Date(e.timeBegin)
