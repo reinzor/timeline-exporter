@@ -9,6 +9,11 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import VueMoment from 'vue-moment'
 
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+import Multiselect from 'vue-multiselect'
+
+Vue.component('multiselect', Multiselect)
+
 Vue.use(Filters)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

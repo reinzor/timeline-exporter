@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="light" variant="light">
     <b-container>
-      <b-navbar-brand href="/index.html">Timeline exporter</b-navbar-brand>
+      <b-navbar-brand href="/index.html">Timeline exporter <b-badge variant="primary">Beta</b-badge></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

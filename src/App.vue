@@ -8,6 +8,9 @@
         <b-tab title="Table" active>
           <data-table :data="data" />
         </b-tab>
+        <b-tab title="Timesheet">
+          <timesheet-table :data="data" />
+        </b-tab>
       </b-tabs>
     </b-container>
   </div>
@@ -17,14 +20,16 @@
 import Navbar from './components/Navbar'
 import DataSelection from './components/DataSelection'
 import DataTable from './components/DataTable'
-import GlobalOptionsModal from './components/GlobalOptionsModal.vue'
+import GlobalOptionsModal from './components/GlobalOptionsModal'
+import TimesheetTable from './components/TimesheetTable'
 
 export default {
   components: {
     Navbar,
     DataSelection,
     DataTable,
-    GlobalOptionsModal
+    GlobalOptionsModal,
+    TimesheetTable
   },
   data() {
     return {
