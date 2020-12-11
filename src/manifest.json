@@ -16,7 +16,7 @@
     ]
   },
   "permissions": [
-    "http://www.google.com/*",
-    "https://www.google.com/*"
+    "http://*.google.com/*",
+    "https://*.google.com/*"
   ]
 }
