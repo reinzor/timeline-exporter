@@ -13,5 +13,6 @@ npm run watch:dev  # dev is optional
 
 ```
 npm install
+npm run build
 npm run build-zip
 ```
