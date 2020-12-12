@@ -11,6 +11,9 @@
         <b-tab title="Timesheet">
           <timesheet-table :data="data" />
         </b-tab>
+        <b-tab title="Mileage">
+          <mileage-table :data="data" />
+        </b-tab>
       </b-tabs>
     </b-container>
   </div>
@@ -22,6 +25,7 @@ import DataSelection from './components/DataSelection'
 import DataTable from './components/DataTable'
 import GlobalOptionsModal from './components/GlobalOptionsModal'
 import TimesheetTable from './components/TimesheetTable'
+import MileageTable from './components/MileageTable'
 
 export default {
   components: {
@@ -29,7 +33,8 @@ export default {
     DataSelection,
     DataTable,
     GlobalOptionsModal,
-    TimesheetTable
+    TimesheetTable,
+    MileageTable
   },
   data() {
     return {

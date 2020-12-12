@@ -100,6 +100,8 @@ export default {
         data.items = data.items.map(e => {
           e.timeBegin = new Date(e.timeBegin)
           e.timeEnd = new Date(e.timeEnd)
+          e.distance = parseInt(e.distance)
+          e.duration = parseInt(e.duration)
           return e
         })
         this.$emit('data-updated', data)
