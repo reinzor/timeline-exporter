@@ -1,54 +1,53 @@
 <template>
-  <b-card-body>
-    <b-form inline id="data-selection">
-      <b-form-group>
-        <b-form-radio-group v-model="type">
-          <b-form-radio v-for="Type in Types" :value="Type" :key="Type">{{ Type }}</b-form-radio>
-        </b-form-radio-group>
-      </b-form-group>
-    </b-form>
-    <multiselect v-model="fromNames" :multiple="true" :options="nameOptions"></multiselect>
-    <multiselect v-model="toNames" :multiple="true" :options="nameOptions"></multiselect>
-    <hr />
-    <span class="text-muted" v-if="mileageData.durationSum > 0">
-      {{ mileageData.distanceSum | kilometers }} -
-      {{ mileageData.durationSum | duration('humanize') }}
-      ({{ mileageData.durationSum | duration('asHours') | round(2) }} hours)
-    </span>
-    <hr />
-    <div v-for="data in mileageData.dataArray" :key="data.name">
-      <hr />
-      <b-table striped hover :items="data.items">
-        <template #cell(timeBegin)="data">
-          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | moment('calendar') }}</span>
-        </template>
-        <template #cell(timeEnd)="data">
-          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | moment('calendar') }}</span>
-        </template>
-        <template #cell(duration)="data">
-          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | duration('humanize') }}</span>
-        </template>
-        <template #cell(distance)="data">
-          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | kilometers }}</span>
-        </template>
-      </b-table>
-    </div>
-  </b-card-body>
+  <div>
+    <b-card-body style="padding-bottom: 0">
+      <b-form inline id="data-selection">
+        <b-form-group>
+          <b-form-radio-group v-model="type">
+            <b-form-radio v-for="Type in Types" :value="Type" :key="Type">{{ Type }}</b-form-radio>
+          </b-form-radio-group>
+        </b-form-group>
+      </b-form>
+      <b-row>
+        <b-col><multiselect v-model="fromNames" :multiple="true" :options="nameOptions"></multiselect></b-col>
+        <b-col><multiselect v-model="toNames" :multiple="true" :options="nameOptions"></multiselect></b-col>
+        <b-col><b-form-checkbox v-model="wayBack">Way back</b-form-checkbox></b-col>
+      </b-row>
+    </b-card-body>
+    <data-table :data="mileageData" />
+  </div>
 </template>
 
 <script>
+function show(fromNames, toNames, from, to, wayBack) {
+  if ((fromNames.length === 0 || fromNames.includes(from)) && (toNames.length === 0 || toNames.includes(to))) {
+    return true
+  }
+  if (wayBack && (fromNames.length === 0 || fromNames.includes(to)) && (toNames.length === 0 || toNames.includes(from))) {
+    return true
+  }
+  return false
+}
+
+
 const Types = {
   DRIVING: 'Driving',
   WALKING: 'Walking'
 }
 
+import DataTable from './DataTable'
+
 export default {
+  components: {
+    DataTable
+  },
   data() {
     return {
       Types: Types,
       type: Types.DRIVING,
       fromNames: [],
       toNames: [],
+      wayBack: false,
       fields: [
         { key: 'name', sortable: true },
         { key: 'timeBegin', sortable: true },
@@ -70,13 +69,7 @@ export default {
         const prevItem = this.data.items[i - 1]
         const item = this.data.items[i]
         const nextItem = this.data.items[i + 1]
-        if (item.name === this.type) {
-          if (this.fromNames.length > 0 && !this.fromNames.includes(prevItem.name)) {
-            continue
-          }
-          if (this.toNames.length > 0 && !this.toNames.includes(nextItem.name)) {
-            continue
-          }
+        if (item.name === this.type && show(this.fromNames, this.toNames, prevItem.name, nextItem.name, this.wayBack)) {
           mileageItems.push({
             fromName: prevItem.name,
             toName: nextItem.name,
@@ -91,14 +84,8 @@ export default {
       }
 
       return {
-        dataArray: [
-          {
-            name: 'all',
-            items: mileageItems
-          }
-        ],
-        durationSum,
-        distanceSum
+        name: `mileage_${this.data.name}`,
+        items: mileageItems
       }
     }
   },

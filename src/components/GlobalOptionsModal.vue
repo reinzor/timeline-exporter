@@ -7,6 +7,12 @@
       v-model="globalOptions.startWeekDay"
       :options="globalOptions.startWeekDayOptions"
     ></b-form-select>
+    <label for="group-mode" class="mt-2">Group mode:</label>
+    <b-form-select
+      id="group-mode"
+      v-model="globalOptions.groupMode"
+      :options="globalOptions.groupModeOptions"
+    ></b-form-select>
   </b-modal>
 </template>
 

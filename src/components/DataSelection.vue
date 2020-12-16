@@ -17,11 +17,10 @@
     >
     </b-form-datepicker>
     <label class="sr-only" for="to-date">To</label>
-    <b-form-datepicker
+    <b-form-datepicker v-if="type === Types.RANGE"
       id="to-date"
       class="mb-2 mr-sm-2 mb-sm-0"
       @input="fetchData()"
-      :disabled="type != Types.RANGE"
       :value-as-date="true"
       v-model="to"
       :hide-header="true"

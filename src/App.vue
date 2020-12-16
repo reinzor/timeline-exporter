@@ -51,3 +51,11 @@ export default {
   }
 }
 </script>
+
+<style>
+@media print {
+  .nav-tabs li a:not(.active) {
+    display: none !important;
+  }
+}
+</style>

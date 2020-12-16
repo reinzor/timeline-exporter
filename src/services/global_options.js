@@ -5,6 +5,9 @@ class Globaloptions {
       { value: 0, text: 'Sunday' },
       { value: 1, text: 'Monday' }
     ]
+    this.groupMode = 'None'
+    this.groupModeOptions = ['None', 'Week', 'Month']
+
     this.load()
   }
 
