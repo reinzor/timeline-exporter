@@ -1,7 +1,10 @@
 <template>
   <b-navbar toggleable="lg" type="light" variant="light">
     <b-container>
-      <b-navbar-brand href="/index.html">Timeline exporter <b-badge variant="primary">Beta</b-badge></b-navbar-brand>
+      <b-navbar-brand href="/index.html">
+        <img src="icons/icon.svg" alt="Timline exporter" width="25px" />
+        Timeline exporter <b-badge variant="primary">Beta</b-badge>
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -9,7 +12,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item v-b-modal.global-options-modal>
-            <span class="navbar-icon"><b-icon icon="gear" aria-hidden="true"></b-icon></span>
+            <span class="navbar-icon"><b-icon icon="gear-fill" variant="primary" aria-hidden="true"></b-icon></span>
           </b-nav-item>
           <b-nav-item-dropdown :text="`v${packageVersion}`" right>
             <b-dropdown-item href="https://github.com/reinzor/timeline-exporter">Github</b-dropdown-item>

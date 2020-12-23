@@ -2,6 +2,8 @@
 
 >  Chrome extension for exporting Google Maps Timeline data
 
+![Illustration](./doc/illustration.png)
+
 ## Development
 
 ```

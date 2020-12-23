@@ -1,6 +1,8 @@
 <template>
   <b-modal id="global-options-modal" hide-footer>
-    <template #modal-title> <b-icon icon="gear" aria-hidden="true"></b-icon> Global options </template>
+    <template #modal-title>
+      <b-icon icon="gear-fill" variant="primary" aria-hidden="true"></b-icon> Global options
+    </template>
     <label for="start-weekday" class="mt-2">Week starts at:</label>
     <b-form-select
       id="start-weekday"

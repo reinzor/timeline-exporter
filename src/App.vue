@@ -52,10 +52,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @media print {
   .nav-tabs li a:not(.active) {
     display: none !important;
   }
+}
+
+$body-color: #00203fff;
+$theme-colors: (
+  "primary": #3db2dcff
+);
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/bootstrap-vue/src/index.scss';
+
+.multiselect__tag {
+  background-color: #3db2dcff !important;
+}
+.multiselect__option--highlight {
+  background-color: #3db2dcff !important;
+}
+.multiselect__option--selected.multiselect__option--highlight {
+  background-color: #3db2dcff !important;
 }
 </style>
