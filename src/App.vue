@@ -61,7 +61,7 @@ export default {
 
 $body-color: #00203fff;
 $theme-colors: (
-  "primary": #3db2dcff
+  'primary': #3db2dcff
 );
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/bootstrap-vue/src/index.scss';

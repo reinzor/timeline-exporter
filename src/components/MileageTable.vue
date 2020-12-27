@@ -19,23 +19,26 @@
 </template>
 
 <script>
+import DataTable from './DataTable'
+
 function show(fromNames, toNames, from, to, wayBack) {
   if ((fromNames.length === 0 || fromNames.includes(from)) && (toNames.length === 0 || toNames.includes(to))) {
     return true
   }
-  if (wayBack && (fromNames.length === 0 || fromNames.includes(to)) && (toNames.length === 0 || toNames.includes(from))) {
+  if (
+    wayBack &&
+    (fromNames.length === 0 || fromNames.includes(to)) &&
+    (toNames.length === 0 || toNames.includes(from))
+  ) {
     return true
   }
   return false
 }
 
-
 const Types = {
   DRIVING: 'Driving',
   WALKING: 'Walking'
 }
-
-import DataTable from './DataTable'
 
 export default {
   components: {
@@ -62,8 +65,6 @@ export default {
       return Array.from(new Set(this.data.items.map(i => i.name)))
     },
     mileageData() {
-      let distanceSum = 0
-      let durationSum = 0
       const mileageItems = []
       for (let i = 1; i < this.data.items.length - 1; ++i) {
         const prevItem = this.data.items[i - 1]
@@ -78,8 +79,6 @@ export default {
             timeEnd: item.timeEnd,
             distance: item.distance
           })
-          distanceSum += item.distance
-          durationSum += item.duration
         }
       }
 

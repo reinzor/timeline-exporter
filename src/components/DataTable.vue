@@ -12,7 +12,7 @@
       </b-dropdown>
     </b-button-group>
     <div v-for="data in groupedData" :key="data.name" style="margin-top: 20px">
-      <h4>{{data.name}}</h4>
+      <h4>{{ data.name }}</h4>
       <b-table striped hover :items="data.items">
         <template #cell(timeBegin)="data">
           <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | moment('calendar') }}</span>
@@ -58,28 +58,30 @@ export default {
     }
   },
   methods: {
-    print () {
+    print() {
       window.print()
     }
   },
   computed: {
-    groupedData () {      
-      let groups = groupBy(this.data.items, (item) => {
+    groupedData() {
+      const groups = groupBy(this.data.items, item => {
         if (globalOptions.groupMode === 'Week') {
-          let weekNumber = getWeekNumber(item.timeBegin)
-          let beginDay = moment(getFirstDayOfWeek(item.timeBegin)).format('ll')
-          let endDay = moment(getLastDayOfWeek(item.timeBegin)).format('ll')
+          const weekNumber = getWeekNumber(item.timeBegin)
+          const beginDay = moment(getFirstDayOfWeek(item.timeBegin)).format('ll')
+          const endDay = moment(getLastDayOfWeek(item.timeBegin)).format('ll')
           return `Week ${weekNumber}: ${beginDay} - ${endDay}`
         } else if (globalOptions.groupMode === 'Month') {
           return moment(getFirstDayOfMonth(item.timeBegin)).format('MMMM YYYY')
         }
         return ``
       })
-      return Object.keys(groups).map((group) => {
+      return Object.keys(groups).map(group => {
         return {
           name: group,
           items: groups[group],
-          durationSum: groups[group].reduce((sum, item) => { return sum + item.duration }, 0),
+          durationSum: groups[group].reduce((sum, item) => {
+            return sum + item.duration
+          }, 0),
           distanceSum: groups[group].reduce((sum, item) => {
             if (item.distance !== undefined) {
               return sum === undefined ? item.distance : sum + item.distance
@@ -87,12 +89,14 @@ export default {
             return undefined
           }, undefined)
         }
-      });
+      })
     },
-    durationSum () {
-      return this.data.items.reduce((sum, item) => { return sum + item.duration }, 0)
+    durationSum() {
+      return this.data.items.reduce((sum, item) => {
+        return sum + item.duration
+      }, 0)
     },
-    distanceSum () {
+    distanceSum() {
       return this.data.items.reduce((sum, item) => {
         if (item.distance !== undefined) {
           return sum === undefined ? item.distance : sum + item.distance
@@ -103,5 +107,4 @@ export default {
   }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

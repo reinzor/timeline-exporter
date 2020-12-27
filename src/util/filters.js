@@ -6,7 +6,7 @@ export default {
       return keep ? fixed : +fixed
     })
     Vue.filter('kilometers', (meters, decimals) => {
-      if (meters == 0) {
+      if (meters === 0) {
         return ''
       }
       decimals = decimals || 2
