@@ -30,6 +30,7 @@ function getLastDayOfMonth(date) {
 }
 
 function getWeekNumber(date) {
+  date = getFirstDayOfWeek(date)
   const firstDayOfYear = new Date(date.getFullYear(), 0, 1)
   const pastDaysOfYear = (date - firstDayOfYear) / 86400000
   let day = firstDayOfYear.getDay()
