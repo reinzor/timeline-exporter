@@ -12,7 +12,7 @@
       @input="fetchData()"
       :value-as-date="true"
       v-model="from"
-      :start-weekday="globalOptions.startWeekDay"
+      :start-weekday="1"
       :hide-header="true"
     >
     </b-form-datepicker>

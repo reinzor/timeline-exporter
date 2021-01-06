@@ -1,22 +1,14 @@
-import globalOptions from '../services/global_options'
-
 function getFirstDayOfWeek(date) {
   const d = new Date(date)
   const day = d.getDay()
-  let first = d.getDate() - day
-  if (globalOptions.startWeekDay === 1) {
-    first += day === 0 ? -6 : 1
-  }
+  const first = d.getDate() - day + (day === 0 ? -6 : 1)
   return new Date(d.setDate(first))
 }
 
 function getLastDayOfWeek(date) {
   const d = new Date(date)
   const day = d.getDay()
-  let first = d.getDate() - day
-  if (globalOptions.startWeekDay === 1) {
-    first += day === 0 ? -6 : 1
-  }
+  const first = d.getDate() - day + (day === 0 ? -6 : 1)
   const last = first + 6
   return new Date(d.setDate(last))
 }
@@ -30,14 +22,15 @@ function getLastDayOfMonth(date) {
 }
 
 function getWeekNumber(date) {
-  date = getFirstDayOfWeek(date)
-  const firstDayOfYear = new Date(date.getFullYear(), 0, 1)
-  const pastDaysOfYear = (date - firstDayOfYear) / 86400000
-  let day = firstDayOfYear.getDay()
-  if (globalOptions.startWeekDay === 0) {
-    day += day === 0 ? -6 : 1
+  var tdt = new Date(date.valueOf())
+  var dayn = (date.getDay() + 6) % 7
+  tdt.setDate(tdt.getDate() - dayn + 3)
+  var firstThursday = tdt.valueOf()
+  tdt.setMonth(0, 1)
+  if (tdt.getDay() !== 4) {
+    tdt.setMonth(0, 1 + ((4 - tdt.getDay() + 7) % 7))
   }
-  return Math.ceil((pastDaysOfYear + day) / 7)
+  return 1 + Math.ceil((firstThursday - tdt) / 604800000)
 }
 
 export { getFirstDayOfWeek, getLastDayOfWeek, getFirstDayOfMonth, getLastDayOfMonth, getWeekNumber }

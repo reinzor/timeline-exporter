@@ -1,10 +1,5 @@
 class Globaloptions {
   constructor() {
-    this.startWeekDay = 1
-    this.startWeekDayOptions = [
-      { value: 0, text: 'Sunday' },
-      { value: 1, text: 'Monday' }
-    ]
     this.groupMode = 'None'
     this.groupModeOptions = ['None', 'Week', 'Month']
 

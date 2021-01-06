@@ -9,9 +9,21 @@
         </b-form-group>
       </b-form>
       <b-row>
-        <b-col><multiselect v-model="fromNames" :multiple="true" :options="nameOptions"></multiselect></b-col>
-        <b-col><multiselect v-model="toNames" :multiple="true" :options="nameOptions"></multiselect></b-col>
-        <b-col><b-form-checkbox v-model="wayBack">Way back</b-form-checkbox></b-col>
+        <b-col sm="4"><multiselect v-model="fromNames" :multiple="true" :options="nameOptions"></multiselect></b-col>
+        <b-col sm="4"><multiselect v-model="toNames" :multiple="true" :options="nameOptions"></multiselect></b-col>
+        <b-col sm="2" style="margin-top: -2px">
+          <b-form-checkbox v-model="wayBack">
+            <small class="text-muted">Way back</small>
+          </b-form-checkbox>
+          <b-form-checkbox v-model="overwriteDistance">
+            <small class="text-muted">Overwrite distance</small>
+          </b-form-checkbox>
+        </b-col>
+        <b-col sm="2" v-if="overwriteDistance">
+          <b-input-group append="km">
+            <b-form-input v-model.number="overwrittenDistance" type="number"></b-form-input>
+          </b-input-group>
+        </b-col>
       </b-row>
     </b-card-body>
     <data-table :data="mileageData" />
@@ -37,7 +49,8 @@ function show(fromNames, toNames, from, to, wayBack) {
 
 const Types = {
   DRIVING: 'Driving',
-  WALKING: 'Walking'
+  WALKING: 'Walking',
+  CYCLING: 'Cycling'
 }
 
 export default {
@@ -51,6 +64,8 @@ export default {
       fromNames: [],
       toNames: [],
       wayBack: false,
+      overwriteDistance: false,
+      overwrittenDistance: 0,
       fields: [
         { key: 'name', sortable: true },
         { key: 'timeBegin', sortable: true },
@@ -77,7 +92,7 @@ export default {
             duration: item.duration,
             timeBegin: item.timeBegin,
             timeEnd: item.timeEnd,
-            distance: item.distance
+            distance: this.overwriteDistance ? this.overwrittenDistance * 1e3 : item.distance
           })
         }
       }
