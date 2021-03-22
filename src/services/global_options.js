@@ -3,6 +3,9 @@ class Globaloptions {
     this.groupMode = 'None'
     this.groupModeOptions = ['None', 'Week', 'Month']
 
+    this.distanceMode = 'Kilometers'
+    this.distanceModeOptions = ['Kilometers', 'Miles']
+
     this.load()
   }
 

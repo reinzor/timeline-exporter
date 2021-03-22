@@ -24,18 +24,18 @@
           <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | duration('humanize') }}</span>
         </template>
         <template #cell(distance)="data">
-          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | kilometers }}</span>
+          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | distance }}</span>
         </template>
       </b-table>
       <small class="text-muted">
         <i>Duration: {{ data.durationSum | duration('asHours') | round(2) }} hours</i>
-        <i v-if="data.distanceSum">, Distance: {{ data.distanceSum | kilometers }}</i>
+        <i v-if="data.distanceSum">, Distance: {{ data.distanceSum | distance }}</i>
       </small>
     </div>
     <hr />
     <p class="text-muted">
       <i>Duration: {{ durationSum | duration('asHours') | round(2) }} hours</i>
-      <i v-if="distanceSum">, Distance: {{ distanceSum | kilometers }}</i>
+      <i v-if="distanceSum">, Distance: {{ distanceSum | distance }}</i>
     </p>
   </b-card-body>
 </template>
