@@ -106,6 +106,7 @@ export default {
             toaster: 'b-toaster-bottom-right',
             variant: 'danger'
           })
+          this.fetching = false
           return
         }
         // Convert dates to dates (Cannot be handled in fetchGoogleTimelineData method due to content background serialization)
