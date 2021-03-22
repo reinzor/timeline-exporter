@@ -8,10 +8,15 @@ chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
   fetchGoogleTimelineData(request.from, request.to)
     .then(data => {
       console.log('Received data', data)
-      sendResponse(data)
+      sendResponse({
+        error: null,
+        data
+      })
     })
     .catch(error => {
-      alert(`Failed to fetch timeline data: ${error}`)
+      sendResponse({
+        error
+      })
     })
   // return true to indicate we wish to send a response asynchronously
   return true
