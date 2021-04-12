@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import globalOptions from '../services/global_options'
 
 export default {
@@ -7,16 +9,28 @@ export default {
       var fixed = value.toFixed(accuracy)
       return keep ? fixed : +fixed
     })
-    Vue.filter('distance', (meters, decimals) => {
+    Vue.filter('distance', (meters, decimals, asFloat) => {
       if (meters === 0) {
         return ''
       }
       decimals = decimals || 2
+      asFloat = asFloat || false
       const f = Math.pow(10, decimals)
       if (globalOptions.distanceMode === 'Miles') {
-        return `${Math.round((meters / 1609.344) * f) / f} miles`
+        let v = Math.round((meters / 1609.344) * f) / f
+        if (asFloat) {
+          return v
+        }
+        return `${v} miles`
       }
-      return `${Math.round((meters / 1000) * f) / f} km`
+      let v = Math.round((meters / 1000) * f) / f
+      if (asFloat) {
+        return v
+      }
+      return `${v} km`
+    })
+    Vue.filter('hhmmss', seconds => {
+      return moment.utc(seconds * 1000).format('HH:mm:ss')
     })
   }
 }

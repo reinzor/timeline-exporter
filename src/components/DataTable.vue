@@ -6,7 +6,7 @@
           <b-icon icon="download" aria-hidden="true"></b-icon>
         </template>
         <b-dropdown-item>
-          <download-csv :data="data.items" :name="`${data.name}.csv`">CSV</download-csv>
+          <download-csv :data="csvItems" :name="`${data.name}.csv`">CSV</download-csv>
         </b-dropdown-item>
         <b-dropdown-item @click="print">PDF</b-dropdown-item>
       </b-dropdown>
@@ -103,6 +103,18 @@ export default {
         }
         return undefined
       }, undefined)
+    },
+    csvItems() {
+      return this.data.items.map(item => {
+        let csvItem = Object.assign({}, item)
+        if (globalOptions.csvExportProcessedDistance) {
+          csvItem.distance = this.$options.filters.distance(item.distance, 2, true)
+        }
+        if (globalOptions.csvExportProcessedDuration) {
+          csvItem.duration = this.$options.filters.hhmmss(item.duration)
+        }
+        return csvItem
+      })
     }
   }
 }

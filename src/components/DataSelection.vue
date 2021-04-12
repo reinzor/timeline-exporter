@@ -15,7 +15,7 @@
       <b-form-datepicker
         id="from-date"
         class="mb-2 mr-sm-2 mb-sm-0"
-        @input="fetchData()"
+        @input="dateChanged()"
         :value-as-date="true"
         v-model="from"
         :start-weekday="1"
@@ -27,15 +27,18 @@
         v-if="type === Types.RANGE"
         id="to-date"
         class="mb-2 mr-sm-2 mb-sm-0"
-        @input="fetchData()"
+        @input="dateChanged()"
         :value-as-date="true"
         v-model="to"
         :hide-header="true"
       >
       </b-form-datepicker>
-      <span v-if="fetching">
-        <small class="text-muted"><b-spinner small></b-spinner></small>
-      </span>
+      <b-button variant="primary" v-if="fetching">
+        <small><b-spinner small></b-spinner></small>
+      </b-button>
+      <b-button variant="primary" v-else @click="fetchData">
+        <small><b-icon icon="arrow-clockwise" scale="1.2"></b-icon></small>
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -90,10 +93,19 @@ export default {
     }
   },
   created() {
-    this.fetchData()
+    if (globalOptions.autoFetch) {
+      this.fetchData()
+    }
   },
   methods: {
+    dateChanged() {
+      if (globalOptions.autoFetch) {
+        this.fetchData()
+      }
+    },
     fetchData() {
+      this.$emit('data-updated', { name: '', items: [] })
+
       this.fetching = true
       this.error429 = false
       chrome.runtime.sendMessage({ from: this.fromDate, to: this.toDate }, response => {

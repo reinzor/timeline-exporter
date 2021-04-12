@@ -6,6 +6,11 @@ class Globaloptions {
     this.distanceMode = 'Kilometers'
     this.distanceModeOptions = ['Kilometers', 'Miles']
 
+    this.autoFetch = true
+
+    this.csvExportProcessedDistance = false
+    this.csvExportProcessedDuration = false
+
     this.load()
   }
 
