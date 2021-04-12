@@ -43,6 +43,14 @@
           <b-badge variant="secondary">seconds</b-badge><small class="text-muted"> vs </small
           ><b-badge variant="primary">hh:mm:ss</b-badge>
         </b-form-checkbox>
+        <label for="csv-export-local-timezone" class="mt-2">Export dates in local timezone:</label>
+        <b-form-checkbox
+          id="csv-export-local-timezone"
+          v-model="globalOptions.csvExportDatesInLocalTimezone"
+          name="check-button"
+          switch
+        >
+        </b-form-checkbox>
       </b-tab>
     </b-tabs>
   </b-modal>

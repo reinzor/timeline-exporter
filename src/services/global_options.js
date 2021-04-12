@@ -10,6 +10,7 @@ class Globaloptions {
 
     this.csvExportProcessedDistance = false
     this.csvExportProcessedDuration = false
+    this.csvExportDatesInLocalTimezone = false
 
     this.load()
   }
