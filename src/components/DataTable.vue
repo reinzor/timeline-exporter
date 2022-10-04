@@ -26,6 +26,12 @@
         <template #cell(distance)="data">
           <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | distance }}</span>
         </template>
+        <template #cell(latitude)="data">
+          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | round(3) }}</span>
+        </template>
+        <template #cell(longitude)="data">
+          <span v-b-tooltip.hover :title="`${data.value}`">{{ data.value | round(3) }}</span>
+        </template>
       </b-table>
       <small class="text-muted">
         <i>Duration: {{ data.durationSum | duration('asHours') | round(2) }} hours</i>

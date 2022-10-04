@@ -42,7 +42,9 @@ function fetchGoogleTimelineData(from, to) {
                 timeEnd: feature.properties.timespan.end,
                 duration: duration,
                 category: feature.properties.Category,
-                distance: feature.properties.Distance
+                distance: feature.properties.Distance,
+                latitude: feature.geometry.type === 'Point' ? feature.geometry.coordinates[1] : null,
+                longitude: feature.geometry.type === 'Point' ? feature.geometry.coordinates[0] : null
               })
             })
           })
