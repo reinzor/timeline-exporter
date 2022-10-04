@@ -29,8 +29,8 @@ export default {
       }
       return `${v} km`
     })
-    Vue.filter('hhmmss', seconds => {
-      return moment.utc(seconds * 1000).format('HH:mm:ss')
+    Vue.filter('hhmmss', milliseconds => {
+      return moment.utc(milliseconds).format('HH:mm:ss')
     })
   }
 }

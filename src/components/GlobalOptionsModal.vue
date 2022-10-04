@@ -40,7 +40,7 @@
           name="check-button"
           switch
         >
-          <b-badge variant="secondary">seconds</b-badge><small class="text-muted"> vs </small
+          <b-badge variant="secondary">milliseconds</b-badge><small class="text-muted"> vs </small
           ><b-badge variant="primary">hh:mm:ss</b-badge>
         </b-form-checkbox>
         <label for="csv-export-local-timezone" class="mt-2">Export dates in local timezone:</label>
