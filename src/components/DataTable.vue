@@ -109,7 +109,7 @@ export default {
         let csvItem = Object.assign({}, item)
         if (globalOptions.csvExportDatesInLocalTimezone) {
           csvItem.timeBegin = moment(item.timeBegin).format('YYYY-MM-DDTHH:mm:ss.SSS')
-          csvItem.timeEnd = moment(item.timeEnd).format('YYYY-MM-HH:mm:ss.SSS')
+          csvItem.timeEnd = moment(item.timeEnd).format('YYYY-MM-DDTHH:mm:ss.SSS')
         }
         if (globalOptions.csvExportProcessedDistance) {
           csvItem.distance = this.$options.filters.distance(item.distance, 2, true)
