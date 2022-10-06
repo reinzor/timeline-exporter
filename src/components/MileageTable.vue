@@ -88,7 +88,9 @@ export default {
         if (item.name === this.type && show(this.fromNames, this.toNames, prevItem.name, nextItem.name, this.wayBack)) {
           mileageItems.push({
             fromName: prevItem.name,
+            fromAddress: prevItem.address,
             toName: nextItem.name,
+            toAddress: nextItem.address,
             duration: item.duration,
             timeBegin: item.timeBegin,
             timeEnd: item.timeEnd,
